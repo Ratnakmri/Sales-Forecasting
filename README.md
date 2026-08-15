@@ -108,6 +108,3 @@ The model forecasts were compared with actual sales values from the test period.
 - Include holidays and external factors
 - Perform hyperparameter tuning
 
-## 👩‍💻 Author
-
-G.V. Ratna Kumari
