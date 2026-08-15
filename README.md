@@ -1,39 +1,61 @@
-# Sales Forecasting using SARIMA
+# 📈 Sales Forecasting using SARIMA
 
 ## 📌 Project Overview
 
 This project focuses on forecasting future sales using historical retail sales data.
 
-The project performs exploratory data analysis, identifies trends and seasonal patterns, and applies a SARIMA time-series forecasting model to predict future sales.
+The project performs Exploratory Data Analysis (EDA), identifies sales trends and seasonal patterns, and applies a **SARIMA (Seasonal ARIMA)** time-series forecasting model to predict future monthly sales.
 
-## 🎯 Objective
+This project was developed as part of an industrial internship project at **Codec Technologies**.
+
+---
+
+## 🎯 Objectives
 
 - Analyze historical sales trends
 - Identify monthly sales patterns
-- Study seasonality
+- Study seasonality in sales
+- Aggregate transaction-level data into monthly sales
 - Build a time-series forecasting model
+- Forecast future sales
 - Compare actual sales with forecasted sales
-- Evaluate model performance
+- Evaluate model performance using MAE and RMSE
+
+---
 
 ## 📊 Dataset
 
-The project uses the Superstore retail sales dataset.
+The project uses the **Superstore retail sales dataset**.
 
-The dataset contains information about:
+The dataset contains:
 
-- Order Date
-- Sales
-- Quantity
-- Discount
-- Profit
-- Category
-- Sub-Category
-- Region
-- Customer information
+- **9,994 records**
+- **21 columns**
 
-The dataset is loaded locally in Google Colab.
+Important features include:
 
-## 🔧 Technologies Used
+| Feature | Description |
+|---|---|
+| Order Date | Date when the order was placed |
+| Ship Date | Date when the order was shipped |
+| Ship Mode | Shipping method |
+| Customer ID | Unique customer identifier |
+| Customer Name | Customer name |
+| Segment | Customer segment |
+| Region | Sales region |
+| Category | Product category |
+| Sub-Category | Product sub-category |
+| Product Name | Product name |
+| Sales | Sales amount |
+| Quantity | Quantity ordered |
+| Discount | Discount applied |
+| Profit | Profit generated |
+
+The dataset is included in the `data/` directory.
+
+---
+
+## 🛠️ Technologies Used
 
 - Python
 - Pandas
@@ -43,6 +65,9 @@ The dataset is loaded locally in Google Colab.
 - Statsmodels
 - Scikit-learn
 - Google Colab
+- GitHub
+
+---
 
 ## 🔍 Project Workflow
 
@@ -51,60 +76,90 @@ The dataset is loaded locally in Google Colab.
 3. Date Conversion
 4. Exploratory Data Analysis
 5. Monthly Sales Aggregation
-6. Trend Analysis
+6. Yearly Sales Analysis
 7. Seasonality Analysis
 8. Train-Test Split
-9. SARIMA Model
+9. SARIMA Model Development
 10. Sales Forecasting
 11. Model Evaluation
+12. Actual vs Forecast Visualization
+
+---
+
+## 🧹 Data Preprocessing
+
+The following preprocessing steps were performed:
+
+- Loaded the Superstore dataset
+- Handled dataset encoding
+- Converted `Order Date` into datetime format
+- Checked for missing dates
+- Removed invalid date records where required
+- Converted `Sales` into numeric format
+- Aggregated sales by month
+- Prepared the data for time-series forecasting
+
+### Date Range
+
+The dataset covers sales from:
+
+**January 2014 to December 2017**
+
+After preprocessing:
+
+- Missing dates: **0**
+- Monthly sales data was created for forecasting
+
+---
 
 ## 📈 Exploratory Data Analysis
 
-### Yearly Sales
+### Yearly Sales Analysis
 
-Sales generally increased over the period from 2014 to 2017.
+Yearly sales were analyzed to understand the overall sales trend.
 
-### Monthly Sales Pattern
+The analysis showed that sales generally increased from **2014 to 2017**, although some yearly variations were observed.
 
-The analysis showed noticeable seasonal variations in monthly sales, with stronger sales observed in some months such as September and November.
+### Monthly Sales Analysis
 
-## 🤖 Model
+Monthly sales were aggregated from the transaction-level data to study changes in sales over time.
+
+The monthly sales analysis showed noticeable fluctuations and an overall increasing trend.
+
+### Seasonality Analysis
+
+Monthly sales patterns were analyzed to identify recurring seasonal behavior.
+
+The analysis showed relatively stronger sales activity around **September and November**, while **February** showed comparatively lower sales.
+
+---
+
+## ⏳ Train-Test Split
+
+The monthly sales data was divided chronologically into training and testing datasets.
+
+Approximately:
+
+- **80% → Training Data**
+- **20% → Testing Data**
+
+A chronological split was used to ensure that future observations were not used during model training.
+
+---
+
+## 🤖 Forecasting Model
 
 ### SARIMA
 
-A Seasonal ARIMA model was used because the dataset contains monthly observations with seasonal patterns.
+A **SARIMA (Seasonal Autoregressive Integrated Moving Average)** model was used for sales forecasting.
 
-Parameters:
+SARIMA is suitable for time-series data containing trend and seasonal patterns.
 
-- Order: `(1,1,1)`
-- Seasonal Order: `(1,1,1,12)`
-- Seasonal Period: `12 months`
+### Model Parameters
 
-## 📊 Model Performance
+```text
+Order: (1, 1, 1)
 
-| Metric | Result |
-|---|---:|
-| MAE | 13,141.30 |
-| RMSE | 15,846.78 |
+Seasonal Order: (1, 1, 1, 12)
 
-## 📉 Actual vs Forecast
-
-The model forecasts were compared with actual sales values from the test period.
-
-## 💡 Key Insights
-
-- Overall sales showed an increasing trend.
-- Sales varied considerably from month to month.
-- Seasonal patterns were visible.
-- The SARIMA model captured the overall trend and seasonal behavior.
-- Forecast errors were higher during some sharp sales peaks.
-
-## 🚀 Future Improvements
-
-- Test different SARIMA parameters
-- Compare SARIMA with Prophet
-- Try machine-learning forecasting models
-- Include promotional information
-- Include holidays and external factors
-- Perform hyperparameter tuning
-
+Seasonal Period: 12 months
